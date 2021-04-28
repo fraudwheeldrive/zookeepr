@@ -89,6 +89,18 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, './zookeepr-public/index.html'));
 });
 
+app.get('/animals', (req, res) => {
+  res.sendFile(path.join(__dirname, './zookeepr-public/animals.html'));
+});
+
+app.get('/zookeepers', (req, res) => {
+  res.sendFile(path.join(__dirname, './zookeepr-public/zookeepers.html'));
+});
+
+app,get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, '/public/index.html'));
+});
+
 app.post('/api/animals', (req,res) => { 
   req.body.id = animal.length.toString();
   
