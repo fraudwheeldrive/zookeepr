@@ -10,6 +10,8 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 // parse incoming JSON data
 app.use(express.json());
+//link html and css
+app.use(express.static('zookeepr-public'));
 
 function filterByQuery(query, animalsArray) {
   let personalityTraitsArray = [];
@@ -83,11 +85,15 @@ app.get('/api/animals/:id', (req, res) => {
   }
 });
 
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, './zookeepr-public/index.html'));
+});
+
 app.post('/api/animals', (req,res) => { 
-  req.body.id = animals.length.toString();
+  req.body.id = animal.length.toString();
   
   if (!validateAnimal(req.body)) {
-    res.status(400).send('The animal is nor properly formatted');
+    res.status(400).send('The animal is not properly formatted');
   } else {
     const animal = createNewAnimal(req.body, animals);
     res.json(animal);
